@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HAM SSAM 도형심리 분석 | Geometry Psychology Assessment</title>
+  <meta name="description" content="HAM SSAM 도형심리 분석 시스템 — 워크지를 업로드하면 AI가 FSM 5공간·타임라인·패턴 타입을 분석하여 심층 보고서를 제공합니다." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="app-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-shapes">
+        <span class="ls ls-ci">&#9675;</span><span class="ls ls-tr">&#9651;</span><span class="ls ls-sq">&#9633;</span><span class="ls ls-sg">S</span>
+      </span>
+      <div class="logo-text-wrap">
+        <span class="logo-text">HAM SSAM <em>도형심리</em></span>
+        <span class="logo-sub">Geometry Psychology Assessment</span>
+      </div>
+    </div>
+    
+  </div>
+</header>
+
+<main>
+
+<section id="stepUpload" class="step active">
+  <div class="hero">
+    <div class="floating-shapes" aria-hidden="true">
+      <div class="fshape ci" style="--d:0s;--x:8%;--y:25%">&#9675;</div>
+      <div class="fshape tr" style="--d:0.8s;--x:78%;--y:18%">&#9651;</div>
+      <div class="fshape sq" style="--d:1.6s;--x:55%;--y:65%">&#9633;</div>
+      <div class="fshape sg" style="--d:2.4s;--x:20%;--y:70%">S</div>
+      <div class="fshape ci" style="--d:3s;--x:88%;--y:55%">&#9675;</div>
+      <div class="fshape tr" style="--d:1.2s;--x:40%;--y:20%">&#9651;</div>
+    </div>
+    <div class="hero-content">
+      <div class="badge">&#128302; HAM SSAM 도형심리 분석 시스템</div>
+      <h1>&#9675;&#9651;&#9633;S 워크지로 알아보는<br/><span class="gradient-text">나의 심리 프로파일</span></h1>
+      <p class="hero-desc">FSM 5공간 · 타임라인 · 14가지 패턴 분석<br/>AI 기반 HAM SSAM 심층 보고서를 받아보세요</p>
+    </div>
+  </div>
+
+  <div class="gpa-guide card">
+    <h3 class="guide-title">&#128204; HAM SSAM &#9675;&#9651;&#9633;S 도형 의미</h3>
+    <div class="guide-grid">
+      <div class="guide-item ci">
+        <span class="guide-icon">&#9675;</span>
+        <div class="guide-info">
+          <strong>원 (&#9675;)</strong>
+          <span>사람 · 관계 · 물질</span>
+          <small>포용력, 사교적, 활발함</small>
+        </div>
+      </div>
+      <div class="guide-item tr">
+        <span class="guide-icon">&#9651;</span>
+        <div class="guide-info">
+          <strong>삼각형 (&#9651;)</strong>
+          <span>일 · 목표 · 승진</span>
+          <small>리더십, 주도적, 추진력</small>
+        </div>
+      </div>
+      <div class="guide-item sq">
+        <span class="guide-icon">&#9633;</span>
+        <div class="guide-info">
+          <strong>사각형 (&#9633;)</strong>
+          <span>공동체 · 지식 · 현재</span>
+          <small>규범, 원칙, 책임감, 실행</small>
+        </div>
+      </div>
+      <div class="guide-item sg">
+        <span class="guide-icon">S</span>
+        <div class="guide-info">
+          <strong>S형</strong>
+          <span>영성 · 예술 · 건강</span>
+          <small>융통성, 창조성, 감수성</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card main-card">
+    <div class="user-info-section">
+      <h2 class="section-title">&#128100; 기본 정보 <span class="optional">(선택)</span></h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="userName">이름</label>
+          <input type="text" id="userName" placeholder="홍길동" />
+        </div>
+        <div class="form-group">
+          <label for="userDate">검사 날짜</label>
+          <input type="date" id="userDate" />
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="tabPhoto" onclick="switchMode('photo')">
+        &#128247; 워크지 사진 업로드
+        <span class="badge-ai">AI 분석</span>
+      </button>
+      <button class="mode-tab" id="tabManual" onclick="switchMode('manual')">
+        &#9999; 직접 순위 선택
+      </button>
+    </div>
+
+    <div id="photoMode" class="mode-content">
+      <div id="dropZone" class="drop-zone"
+           onclick="document.getElementById('fileInput').click()"
+           ondragover="handleDragOver(event)"
+           ondrop="handleDrop(event)"
+           ondragleave="handleDragLeave(event)"
+           style="cursor: pointer;">
+        <div class="drop-icon">&#128203;</div>
+        <p class="drop-title">도형 심리 검사지 업로드</p>
+        <p class="drop-sub">여기를 클릭하거나 검사지 이미지를 드래그 앤 드롭 하세요.</p>
+        <p class="drop-tip">JPG, PNG, HEIC 파일 지원 (최대 15MB)</p>
+      </div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileSelect(event)" />
+      <div id="previewBox" class="preview-box hidden">
+        <img id="previewImg" src="" alt="워크지 미리보기" />
+        <button class="btn-ghost sm" onclick="removeImage()">&#128465; 이미지 제거</button>
+      </div>
+      
+    </div>
+
+    <div id="manualMode" class="mode-content hidden">
+      <h2 class="section-title">&#128290; 도형 선호 순위를 클릭해 주세요</h2>
+      <p class="manual-desc">가장 끌리는 도형부터 순서대로 1~4위를 선택해 주세요</p>
+      <div class="shape-selector">
+        <div class="shape-card" id="sc-ci" onclick="selectShape('ci')" data-shape="ci">
+          <div class="shape-icon ci-icon">&#9675;</div>
+          <div class="shape-name">원 (&#9675;)</div>
+          <div class="shape-desc">사람 · 관계 · 물질</div>
+          <div class="shape-tag">포용 · 공감</div>
+          <div class="shape-rank hidden"></div>
+        </div>
+        <div class="shape-card" id="sc-tr" onclick="selectShape('tr')" data-shape="tr">
+          <div class="shape-icon tr-icon">&#9651;</div>
+          <div class="shape-name">삼각형 (&#9651;)</div>
+          <div class="shape-desc">일 · 목표 · 승진</div>
+          <div class="shape-tag">리더 · 추진</div>
+          <div class="shape-rank hidden"></div>
+        </div>
+        <div class="shape-card" id="sc-sq" onclick="selectShape('sq')" data-shape="sq">
+          <div class="shape-icon sq-icon">&#9633;</div>
+          <div class="shape-name">사각형 (&#9633;)</div>
+          <div class="shape-desc">공동체 · 지식</div>
+          <div class="shape-tag">규범 · 실행</div>
+          <div class="shape-rank hidden"></div>
+        </div>
+        <div class="shape-card" id="sc-sg" onclick="selectShape('sg')" data-shape="sg">
+          <div class="shape-icon sg-icon">S</div>
+          <div class="shape-name">S형</div>
+          <div class="shape-desc">영성 · 예술 · 건강</div>
+          <div class="shape-tag">창의 · 감수성</div>
+          <div class="shape-rank hidden"></div>
+        </div>
+      </div>
+      <div id="rankDisplay" class="rank-display">
+        <span class="rank-item" id="rank1">1위: ?</span>
+        <span class="rank-item" id="rank2">2위: ?</span>
+        <span class="rank-item" id="rank3">3위: ?</span>
+        <span class="rank-item" id="rank4">4위: ?</span>
+      </div>
+      <button class="btn-ghost sm" onclick="resetShapes()">&#8617; 다시 선택</button>
+    </div>
+
+    <div class="divider"></div>
+    <button id="startBtn" class="btn-primary full" onclick="startAnalysis()">
+      &#128302; HAM SSAM 분석 시작하기
+    </button>
+  </div>
+</section>
+
+<section id="stepLoading" class="step">
+  <div class="loading-container">
+    <div class="loading-shapes">
+      <div class="l-shape ci-l">&#9675;</div>
+      <div class="l-shape tr-l">&#9651;</div>
+      <div class="l-shape sq-l">&#9633;</div>
+      <div class="l-shape sg-l">S</div>
+    </div>
+    <h2 id="loadingText" class="loading-title">HAM SSAM 분석 중...</h2>
+    <div class="loading-bar-wrap">
+      <div class="loading-bar" id="loadingBar"></div>
+    </div>
+    <p class="loading-sub">FSM 5공간 · 타임라인 · 패턴 분석 중이에요 &#10024;</p>
+  </div>
+</section>
+
+<section id="stepReport" class="step">
+  <div class="report-actions no-print">
+    <button class="btn-ghost" onclick="goBack()">&#8592; 처음으로</button>
+    <div class="action-btns">
+      <button class="btn-secondary" onclick="printReport()">&#128424; 인쇄</button>
+      <button class="btn-primary" onclick="downloadPDF()">&#11015; PDF 다운로드</button>
+    </div>
+  </div>
+
+  <div id="reportContent" class="report-content">
+    <div class="report-cover">
+      <div class="cover-deco" aria-hidden="true">
+        <span class="cd ci">&#9675;</span><span class="cd tr">&#9651;</span>
+        <span class="cd sq">&#9633;</span><span class="cd sg">S</span>
+      </div>
+      <div class="cover-logo">HAM SSAM · Geometry Psychology Assessment</div>
+      <div class="cover-badge" id="patternTypeBadge">&#128208; 단순형</div>
+      <h1 class="cover-name" id="coverName">홍길동 님</h1>
+      <p class="cover-date" id="coverDate">2026년 5월 23일</p>
+      <div class="cover-type">
+        <span class="type-label">심리 유형</span>
+        <span class="type-value" id="coverType">원형 공감자</span>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <h2 class="rs-title">&#9675;&#9651;&#9633;S 나의 도형 순위</h2>
+      <div class="shape-ranks" id="shapeRanks"></div>
+    </div>
+
+    <div class="report-section timeline-analysis-section">
+      <h2 class="rs-title">⏳ 과거 · 현재 · 미래 심리상태 분석</h2>
+      <div class="timeline-status-grid">
+        <div class="timeline-status-card past">
+          <div class="ts-header">
+            <span class="ts-icon">🕒</span>
+            <strong class="ts-title">과거의 심리상태 (성장 배경 · 트라우마 · 경험 영역)</strong>
+          </div>
+          <p class="ts-text" id="pastText"></p>
+        </div>
+        <div class="timeline-status-card present">
+          <div class="ts-header">
+            <span class="ts-icon">🎯</span>
+            <strong class="ts-title">현재의 심리상태 (지금 이 순간 주된 욕구와 에너지)</strong>
+          </div>
+          <p class="ts-text" id="presentText"></p>
+        </div>
+        <div class="timeline-status-card future">
+          <div class="ts-header">
+            <span class="ts-icon">🚀</span>
+            <strong class="ts-title">미래의 심리상태 (지향하는 가치 · 성장 과제 · 희망)</strong>
+          </div>
+          <p class="ts-text" id="futureText"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <h2 class="rs-title">&#128202; 성격 프로파일</h2>
+      <div class="chart-wrap">
+        <canvas id="radarChart" width="320" height="320"></canvas>
+      </div>
+    </div>
+
+    <div class="report-section strength-section">
+      <h2 class="rs-title">&#128170; 강점</h2>
+      <div class="tags" id="strengthTags"></div>
+      <p class="rs-text" id="strengthText"></p>
+    </div>
+
+    <div class="report-section weakness-section">
+      <h2 class="rs-title">&#9888; 주의할 점</h2>
+      <div class="tags" id="weaknessTags"></div>
+      <p class="rs-text" id="weaknessText"></p>
+    </div>
+
+    <div class="report-section complement-section">
+      <h2 class="rs-title">&#128295; 보완하면 더 좋아요</h2>
+      <ul class="rs-list" id="complementList"></ul>
+    </div>
+
+    <div class="report-section relation-section">
+      <h2 class="rs-title">&#129309; 대인관계 &amp; 의사소통 스타일</h2>
+      <div class="relation-grid">
+        <div class="relation-item">
+          <div class="relation-label">대인관계 방식</div>
+          <p class="relation-text" id="relationText"></p>
+        </div>
+        <div class="relation-item">
+          <div class="relation-label">의사소통 방식</div>
+          <p class="relation-text" id="communicationText"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-section advice-section">
+      <h2 class="rs-title">&#128161; 전문가 코칭 조언</h2>
+      <div class="advice-card" id="adviceCard"></div>
+    </div>
+
+    <div class="report-section career-section">
+      <h2 class="rs-title">&#127775; 잘 맞는 직업 &amp; 환경</h2>
+      <div class="career-grid" id="careerGrid"></div>
+    </div>
+
+    <div class="report-footer">
+      <p>&#128311; HAM SSAM 도형심리 분석 | Geometry Psychology Assessment</p>
+      <p class="footer-small">본 보고서는 참고용이며, 전문 상담사와의 상담을 권장합니다</p>
+    </div>
+  </div>
+</section>
+
+</main>
+<script src="app.js?v=10.0"></script>
+</body>
+</html>
+
+
+
