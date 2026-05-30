@@ -112,11 +112,8 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
 
 app.use(express.static('.'));
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, () => {
-    console.log(`HAM SSAM 벡엔드 서버가 http://localhost:${port} 에서 실행 중입니다.`);
-  });
-}
+app.listen(port, () => {
+  console.log(`HAM SSAM 벡엔드 서버가 http://localhost:${port} 에서 실행 중입니다.`);
+});
 
-export default app;
 
