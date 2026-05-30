@@ -125,7 +125,8 @@ async function runHamSsamAiAnalysis() {
     const formData = new FormData();
     formData.append('image', selectedFile);
 
-    const resp = await fetch('http://localhost:4000/api/analyze', {
+    const apiUrl = window.location.protocol === 'file:' ? 'http://localhost:4000/api/analyze' : '/api/analyze';
+    const resp = await fetch(apiUrl, {
       method: 'POST',
       body: formData
     });
@@ -564,6 +565,7 @@ async function downloadPDF() {
     btn.disabled = false;
   }
 }
+
 
 
 
