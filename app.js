@@ -146,10 +146,10 @@ async function runHamSsamAiAnalysis() {
 
   } catch (err) {
     console.error('AI 분석 실패:', err);
-    let extra = window.location.protocol === 'file:' ? '백엔드 서버(http://localhost:4000)가 켜져 있는지 확인해주세요.' : '구글 AI 서버 접속자가 많아 일시적인 지연이 발생했습니다. 10초 뒤에 다시 분석 버튼을 눌러주세요!';
+    
     alert('🚨 HAM SSAM AI 분석 실패\n\n' + 
           '• 상세 에러: ' + err.message + '\n\n' +
-          '💡 참고: ' + extra);
+          '💡 참고: 에러 메시지를 확인해주세요.');
     showStep('stepUpload');
     switchMode('manual');
   }
@@ -526,4 +526,5 @@ function printReport() { window.print(); }
 async function downloadPDF() {
   window.print();
 }
+
 
