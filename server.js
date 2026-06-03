@@ -13,9 +13,7 @@ const port = process.env.PORT || 4000;
 app.use(cors());
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 15 * 1024 * 1024 } });
 const queue = new PQueue({ concurrency: 1, interval: 4000, intervalCap: 1 });
-const rawKey = process.env.GEMINI_API_KEY || '';
-const cleanKey = rawKey.replace(/[^\x20-\x7E]/g, '').trim();
-const genAI = new GoogleGenerativeAI(cleanKey);
+
 
 const systemKnowledge = `
 [HAM SSAM 도형심리 분석 시스템 지식]
