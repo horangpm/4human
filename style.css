@@ -961,3 +961,23 @@ main { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
   margin: 0;
   white-space: pre-line;
 }
+/* --- 인쇄용(PDF) 스타일 --- */
+@media print {
+  @page { size: A4 portrait; margin: 15mm; }
+  body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .no-print, .report-actions { display: none !important; }
+  .report-content { box-shadow: none !important; padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
+  .report-section { page-break-inside: avoid; margin-bottom: 20px; }
+  .cover-deco, .cover-badge, .cover-name, .cover-date, .cover-type { page-break-inside: avoid; }
+}
+
+/* 저작권 스타일 */
+.report-copyright {
+  text-align: right;
+  font-size: 11px;
+  color: #888;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  margin-top: 40px;
+  font-weight: bold;
+}
