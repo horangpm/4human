@@ -524,53 +524,5 @@ function goBack() {
 function printReport() { window.print(); }
 
 async function downloadPDF() {
-  const btn = document.querySelector('.btn-primary[onclick="downloadPDF()"]');
-  const origText = btn.textContent;
-  btn.textContent = '⏳ 생성 중...';
-  btn.disabled = true;
-  try {
-    const { jsPDF } = window.jspdf;
-    const content = document.getElementById('reportContent');
-    const canvas = await html2canvas(content, {
-      scale: 2, useCORS: true, logging: false, backgroundColor: '#f5f0ff'
-    });
-    const imgData = canvas.toDataURL('image/jpeg', 0.92);
-    const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-    const pW = pdf.internal.pageSize.getWidth();
-    const pH = pdf.internal.pageSize.getHeight();
-    const ratio = canvas.width / canvas.height;
-    const imgH = pW / ratio;
-    if (imgH <= pH) {
-      pdf.addImage(imgData, 'JPEG', 0, 0, pW, imgH);
-    } else {
-      let y = 0;
-      const pagePixH = canvas.height * (pH / imgH);
-      while (y < canvas.height) {
-        const sliceH = Math.min(pagePixH, canvas.height - y);
-        const sc = document.createElement('canvas');
-        sc.width = canvas.width; sc.height = sliceH;
-        sc.getContext('2d').drawImage(canvas, 0, y, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
-        if (y > 0) pdf.addPage();
-        pdf.addImage(sc.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, pW, sliceH * (pW / canvas.width));
-        y += sliceH;
-      }
-    }
-    const name = document.getElementById('coverName').textContent.replace(' 님','') || 'HAM_SSAM';
-    pdf.save(name + '_HAM SSAM 도형심리보고서.pdf');
-  } catch (err) {
-    console.error(err);
-    alert('PDF 생성 오류. 브라우저 인쇄(Ctrl+P)로 PDF 저장해보세요!');
-  } finally {
-    btn.textContent = origText;
-    btn.disabled = false;
-  }
+  window.print();
 }
-
-
-
-
-
-
-
-
-
