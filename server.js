@@ -64,7 +64,7 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
 
   try {
     const resultJson = await queue.add(async () => {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
       const imagePart = {
         inlineData: {
           data: req.file.buffer.toString("base64"),
@@ -115,6 +115,7 @@ app.use(express.static('.'));
 app.listen(port, () => {
   console.log(`HAM SSAM 벡엔드 서버가 http://localhost:${port} 에서 실행 중입니다.`);
 });
+
 
 
 
