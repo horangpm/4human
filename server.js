@@ -72,7 +72,7 @@ app.post('/api/analyze', upload.single('image'), async (req, res) => {
     const genAI = new GoogleGenerativeAI(cleanKey);
 
     const resultJson = await queue.add(async () => {
-      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
       const imagePart = {
         inlineData: {
           data: req.file.buffer.toString("base64"),
